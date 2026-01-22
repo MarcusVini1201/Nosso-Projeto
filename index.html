@@ -1,218 +1,221 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGB-C v40.0 | Wiki Prime Operacional</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f1f5f9; }
-        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .card-glow:hover { border-color: #facc15; box-shadow: 0 0 50px rgba(250, 204, 21, 0.15); transform: translateY(-4px); }
-        .bg-grid { background-image: linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px); background-size: 40px 40px; }
-        .gradient-text { background: linear-gradient(to right, #facc15, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .status-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .wiki-item:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
-    </style>
-</head>
-<body class="bg-grid min-h-screen pb-20">
+import React, { useState, useEffect } from 'react';
+import { 
+  Shield, 
+  HeartPulse, 
+  Hammer, 
+  Mountain, 
+  DoorOpen, 
+  Zap, 
+  Linkedin, 
+  Play, 
+  FileText, 
+  Database,
+  Search,
+  CheckCircle2,
+  Clock
+} from 'lucide-react';
 
-    <!-- Terminal de Status -->
-    <div class="bg-black/90 border-b border-yellow-500/30 px-8 py-2 flex justify-between items-center sticky top-0 z-[100]">
-        <div class="flex items-center gap-4 text-yellow-500">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 status-pulse"></span>
-            <span class="text-[10px] font-black tracking-[0.4em] uppercase font-mono italic">SIGB-C v40.0 - Wiki Prime & Handover Protocol</span>
+const App = () => {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date().toLocaleTimeString()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const materials = [
+    { 
+      id: 1, 
+      category: 'APH', 
+      name: 'D.E.A (Desfibrilador)', 
+      norm: 'NR-07 / AHA', 
+      desc: 'Aparelho automático que analisa o coração e dá o choque se precisar. O próprio aparelho fala o que fazer.', 
+      icon: <HeartPulse className="text-red-500" />,
+      color: 'border-red-500',
+      video: '#' 
+    },
+    { 
+      id: 2, 
+      category: 'Salvamento', 
+      name: 'Ferramenta Hooligan', 
+      norm: 'NT-07 CBMDF', 
+      desc: 'A "chave-mestra" da brigada. Serve para abrir portas travadas e forçar entradas em emergências.', 
+      icon: <Hammer className="text-emerald-500" />,
+      color: 'border-emerald-500',
+      video: '#' 
+    },
+    { 
+      id: 3, 
+      category: 'Altura', 
+      name: 'Cinto Paraquedista', 
+      norm: 'NR-35', 
+      desc: 'Equipamento de proteção para trabalhos acima de 2 metros. Garante que você não caia se escorregar.', 
+      icon: <Mountain className="text-sky-500" />,
+      color: 'border-sky-500',
+      video: '#' 
+    },
+    { 
+      id: 4, 
+      category: 'Prevenção', 
+      name: 'Saídas (Escadas)', 
+      norm: 'NT 10', 
+      desc: 'O caminho para a rua. Deve estar sempre livre de lixo e caixas. Portas corta-fogo sempre fechadas.', 
+      icon: <DoorOpen className="text-yellow-500" />,
+      color: 'border-yellow-500',
+      video: '#' 
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#020617] text-slate-100 font-sans selection:bg-yellow-500/30">
+      {/* Top Status Bar */}
+      <div className="bg-slate-900/80 border-b border-yellow-500/20 px-8 py-2 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-[10px] font-black tracking-[0.4em] text-yellow-500 uppercase">
+            SIGB-C v42.0 - Wiki Prime & Tactical Handover
+          </span>
         </div>
-        <div id="clock" class="font-mono text-[10px] text-slate-500 tracking-widest uppercase italic"></div>
-    </div>
-
-    <!-- Navegação e Identidade -->
-    <nav class="p-6">
-        <div class="glass max-w-7xl mx-auto rounded-3xl p-5 flex justify-between items-center border-white/5 shadow-2xl">
-            <div class="flex items-center gap-5">
-                <div class="w-12 h-12 bg-yellow-500 rounded-2xl flex items-center justify-center text-black shadow-lg">
-                    <i class="fas fa-book-medical text-2xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-black tracking-tighter italic uppercase text-white leading-none">SIGB-C <span class="text-yellow-500">v40.0</span></h1>
-                    <p class="text-[8px] font-black uppercase tracking-[0.3em] text-slate-500 italic">Wiki Prime Marcus V. & Ralf</p>
-                </div>
-            </div>
-            <div class="hidden md:flex flex-col items-end">
-                <span class="text-[8px] text-slate-500 font-bold uppercase tracking-widest">Posto: CIOSP/CIOB - DF</span>
-                <span class="text-[9px] text-emerald-400 font-black italic uppercase">Operação 100% Sincronizada</span>
-            </div>
+        <div className="flex items-center gap-4 text-[10px] font-mono text-slate-500 italic">
+          <span className="hidden md:block">SINC: GITHUB ATIVO</span>
+          <span className="text-white border border-white/10 px-3 py-1 rounded-full">{time}</span>
         </div>
-    </nav>
+      </div>
 
-    <main class="max-w-7xl mx-auto px-6 py-10 space-y-16">
+      <nav className="p-6">
+        <div className="max-w-7xl mx-auto glass rounded-[2.5rem] p-5 flex justify-between items-center border border-white/5 shadow-2xl">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-yellow-500 rounded-2xl flex items-center justify-center text-black shadow-lg shadow-yellow-500/20">
+              <Database size={24} />
+            </div>
+            <div>
+              <h1 className="text-2xl font-black tracking-tighter italic text-white leading-none">SIGB-C <span className="text-yellow-500 uppercase">Wiki Prime</span></h1>
+              <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 mt-1 italic">Comando Marcus V. & Ralf</p>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="hidden md:flex flex-col items-end border-r border-white/10 pr-4 mr-4">
+              <span className="text-[8px] text-slate-500 font-black uppercase">Posto Atual</span>
+              <span className="text-[10px] text-white font-black italic">CIOB / SOPI - DF</span>
+            </div>
+            <Shield className="text-yellow-500 opacity-50" />
+          </div>
+        </div>
+      </nav>
+
+      <main className="max-w-7xl mx-auto px-6 py-10 space-y-20 pb-40">
         
-        <!-- SQUAD DE COMANDO (PROSPECÇÃO) -->
-        <section id="squad">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass p-8 rounded-[3rem] border border-white/5 card-glow transition-all flex flex-col md:flex-row items-center gap-8">
-                    <div class="w-20 h-20 rounded-full bg-yellow-500 flex items-center justify-center text-black text-2xl font-black">MV</div>
-                    <div class="text-center md:text-left">
-                        <h3 class="text-xl font-black italic text-white uppercase italic">Marcus Vinícius</h3>
-                        <p class="text-[10px] text-yellow-500 font-black uppercase mb-4">CDO & Analista Master</p>
-                        <a href="https://linkedin.com/in/marcus-vinícius-335552148" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-white hover:text-blue-600 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all shadow-lg">
-                            <i class="fab fa-linkedin"></i> Ver Perfil
-                        </a>
-                    </div>
-                </div>
-                <div class="glass p-8 rounded-[3rem] border border-white/5 card-glow transition-all flex flex-col md:flex-row items-center gap-8">
-                    <div class="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl font-black">RF</div>
-                    <div class="text-center md:text-left">
-                        <h3 class="text-xl font-black italic text-white uppercase italic">Rafael (Ralf)</h3>
-                        <p class="text-[10px] text-blue-400 font-black uppercase mb-4">Especialista Tático</p>
-                        <a href="https://linkedin.com/in/rafooc" target="_blank" class="inline-flex items-center gap-2 bg-blue-700 hover:bg-white hover:text-blue-700 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all shadow-lg">
-                            <i class="fab fa-linkedin"></i> Ver Perfil
-                        </a>
-                    </div>
-                </div>
+        {/* Squad Section */}
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="group glass p-8 rounded-[3rem] border border-white/5 hover:border-yellow-500/30 transition-all flex flex-col md:flex-row items-center gap-8 shadow-xl">
+            <div className="w-24 h-24 rounded-full bg-yellow-500 flex items-center justify-center text-black text-3xl font-black shadow-2xl">MV</div>
+            <div className="text-center md:text-left flex-1">
+              <h3 className="text-xl font-black italic text-white uppercase leading-none mb-1">Marcus Vinícius</h3>
+              <p className="text-[10px] text-yellow-500 font-black uppercase tracking-[0.2em] mb-4">CDO & Analista de Estratégia</p>
+              <a href="https://linkedin.com/in/marcus-vinícius-335552148" target="_blank" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-white hover:text-blue-600 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all">
+                <Linkedin size={14} /> Perfil LinkedIn
+              </a>
             </div>
+          </div>
+
+          <div className="group glass p-8 rounded-[3rem] border border-white/5 hover:border-blue-500/30 transition-all flex flex-col md:flex-row items-center gap-8 shadow-xl">
+            <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl font-black shadow-2xl">RF</div>
+            <div className="text-center md:text-left flex-1">
+              <h3 className="text-xl font-black italic text-white uppercase leading-none mb-1">Rafael (Ralf)</h3>
+              <p className="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em] mb-4">Especialista em Logística Tática</p>
+              <a href="https://linkedin.com/in/rafooc" target="_blank" className="inline-flex items-center gap-2 bg-blue-700 hover:bg-white hover:text-blue-700 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all">
+                <Linkedin size={14} /> Perfil LinkedIn
+              </a>
+            </div>
+          </div>
         </section>
 
-        <!-- WIKI PRIME: CATÁLOGO DE MATERIAIS & PROCEDIMENTOS -->
-        <section id="wiki-prime">
-            <header class="mb-10">
-                <h2 class="text-4xl font-black italic tracking-tighter uppercase text-white leading-none italic">Wiki <span class="text-yellow-500">Prime</span></h2>
-                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-[0.3em] mt-2 italic">Como usar e para que serve (Linguagem do Povo)</p>
-            </header>
-
-            <div class="grid grid-cols-1 gap-4">
-                
-                <!-- Item: D.E.A -->
-                <div class="glass p-6 rounded-3xl border border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 group hover:border-yellow-500/30 transition-all">
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center text-red-500">
-                            <i class="fas fa-heart-pulse text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-black text-white uppercase italic">D.E.A (Desfibrilador)</h4>
-                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1 italic">Norma: NR-07 / AHA 2025</p>
-                            <p class="text-[11px] text-slate-400 mt-2 max-w-xl italic">
-                                "É o aparelho que salva o coração. Ele fala com você. Ligue, cole as pás no peito e afaste todo mundo. Ele faz o trabalho sozinho."
-                            </p>
-                        </div>
-                    </div>
-                    <button class="bg-slate-900 border border-white/10 px-6 py-3 rounded-xl text-[10px] font-black uppercase text-yellow-500 hover:bg-yellow-500 hover:text-black transition-all">
-                        <i class="fas fa-play mr-2"></i> Ver Vídeo Aula
-                    </button>
-                </div>
-
-                <!-- Item: Hooligan -->
-                <div class="glass p-6 rounded-3xl border border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 group hover:border-emerald-500/30 transition-all">
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 bg-emerald-600/10 rounded-2xl flex items-center justify-center text-emerald-500">
-                            <i class="fas fa-hammer text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-black text-white uppercase italic">Ferramenta Hooligan</h4>
-                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1 italic">Norma: NT-07 CBMDF</p>
-                            <p class="text-[11px] text-slate-400 mt-2 max-w-xl italic">
-                                "A chave mestra da brigada. Serve para arrombar portas, cortar latarias e forçar aberturas em emergências de fogo."
-                            </p>
-                        </div>
-                    </div>
-                    <button class="bg-slate-900 border border-white/10 px-6 py-3 rounded-xl text-[10px] font-black uppercase text-emerald-500 hover:bg-emerald-500 hover:text-black transition-all">
-                        <i class="fas fa-play mr-2"></i> Ver Vídeo Aula
-                    </button>
-                </div>
-
-                <!-- Item: Prancha Rígida -->
-                <div class="glass p-6 rounded-3xl border border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 group hover:border-blue-500/30 transition-all">
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center text-blue-500">
-                            <i class="fas fa-bed-pulse text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-black text-white uppercase italic">Prancha Longa Rígida</h4>
-                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1 italic">Norma: NR-07 / APH</p>
-                            <p class="text-[11px] text-slate-400 mt-2 max-w-xl italic">
-                                "Para carregar quem não pode andar. Serve para imobilizar a coluna e transportar a vítima com segurança até a ambulância."
-                            </p>
-                        </div>
-                    </div>
-                    <button class="bg-slate-900 border border-white/10 px-6 py-3 rounded-xl text-[10px] font-black uppercase text-blue-500 hover:bg-blue-500 hover:text-black transition-all">
-                        <i class="fas fa-play mr-2"></i> Ver Vídeo Aula
-                    </button>
-                </div>
-
-                <!-- Item: Cinto Paraquedista -->
-                <div class="glass p-6 rounded-3xl border border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 group hover:border-sky-500/30 transition-all">
-                    <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 bg-sky-600/10 rounded-2xl flex items-center justify-center text-sky-500">
-                            <i class="fas fa-mountain text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-black text-white uppercase italic">Cinto Paraquedista</h4>
-                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1 italic">Norma: NR-35 (Altura)</p>
-                            <p class="text-[11px] text-slate-400 mt-2 max-w-xl italic">
-                                "Sua segurança no alto. Vestiu, travou e prendeu o talabarte. Se você escorregar, ele segura o seu corpo no ar."
-                            </p>
-                        </div>
-                    </div>
-                    <button class="bg-slate-900 border border-white/10 px-6 py-3 rounded-xl text-[10px] font-black uppercase text-sky-500 hover:bg-sky-500 hover:text-black transition-all">
-                        <i class="fas fa-play mr-2"></i> Ver Vídeo Aula
-                    </button>
-                </div>
-
+        {/* Wiki Section */}
+        <section>
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <h2 className="text-4xl font-black italic tracking-tighter uppercase text-white leading-none">Catálogo <span className="text-yellow-500">Wiki Prime</span></h2>
+              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.3em] mt-2 italic">Aperte o play para aprender a utilizar o material</p>
             </div>
+            <div className="bg-slate-900 border border-white/10 px-4 py-2 rounded-2xl flex items-center gap-3">
+              <Search size={16} className="text-slate-500" />
+              <input type="text" placeholder="BUSCAR MATERIAL..." className="bg-transparent border-none text-[10px] font-black uppercase tracking-widest outline-none w-40" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6">
+            {materials.map((item) => (
+              <div key={item.id} className={`glass p-8 rounded-[2.5rem] border-l-8 ${item.color} flex flex-col lg:flex-row justify-between items-center gap-8 hover:bg-white/[0.02] transition-all group`}>
+                <div className="flex items-center gap-8 flex-1">
+                  <div className="w-20 h-20 bg-slate-900 rounded-[1.5rem] flex items-center justify-center text-3xl shadow-inner border border-white/5">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <span className="text-[9px] font-black bg-white/5 text-slate-400 px-2 py-0.5 rounded uppercase tracking-tighter">
+                        {item.category}
+                      </span>
+                      <h4 className="text-xl font-black italic text-white uppercase tracking-tighter leading-none">
+                        {item.name}
+                      </h4>
+                    </div>
+                    <p className="text-[9px] text-yellow-500 font-black uppercase tracking-widest mb-3 italic">
+                      Referência: {item.norm}
+                    </p>
+                    <p className="text-xs text-slate-400 font-medium italic leading-relaxed max-w-2xl">
+                      "{item.desc}"
+                    </p>
+                  </div>
+                </div>
+                <button className="w-full lg:w-auto bg-slate-900 border border-white/10 px-8 py-5 rounded-2xl flex items-center justify-center gap-3 group-hover:bg-white group-hover:text-black transition-all shadow-xl">
+                  <Play size={18} />
+                  <span className="text-[10px] font-black uppercase tracking-widest">Vídeo Instrucional</span>
+                </button>
+              </div>
+            ))}
+          </div>
         </section>
 
-        <!-- DOWNLOADS SINCRONIZADOS -->
-        <section id="downloads">
-            <header class="mb-8 flex items-center gap-4">
-                <div class="h-8 w-1 bg-slate-700 rounded-full"></div>
-                <h2 class="text-sm font-black uppercase tracking-[0.6em] text-slate-500 italic font-mono">Documentação GitHub Sync</h2>
-            </header>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="NT10SaidasdeEmergencia.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-yellow-500 flex justify-between items-center group">
-                    <span class="text-[9px] font-black text-white uppercase italic">NT 10 - Saídas</span>
-                    <i class="fas fa-file-pdf text-slate-700"></i>
-                </a>
-                <a href="NT021ILUMINACAODEEMERGENCIAAPROVADO-FINAL.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-blue-500 flex justify-between items-center group">
-                    <span class="text-[9px] font-black text-white uppercase italic">NT 21 - Iluminação</span>
-                    <i class="fas fa-file-pdf text-slate-700"></i>
-                </a>
-                <a href="NormaTecnica222020CBMDFSistemadeSinalizacaodeSegurancaContraIncendioePanico.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-emerald-500 flex justify-between items-center group">
-                    <span class="text-[9px] font-black text-white uppercase italic text-[8px]">NT 22 - Sinalização</span>
-                    <i class="fas fa-file-pdf text-slate-700"></i>
-                </a>
-                <a href="NR26SINALIZAÇÃO.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-orange-500 flex justify-between items-center group">
-                    <span class="text-[9px] font-black text-white uppercase italic">NR 26 - Cores</span>
-                    <i class="fas fa-file-pdf text-slate-700"></i>
-                </a>
-                <a href="aha.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-red-500 flex justify-between items-center group">
-                    <span class="text-[9px] font-black text-white uppercase italic">AHA 2025</span>
-                    <i class="fas fa-file-pdf text-slate-700"></i>
-                </a>
-                <a href="inventario.xlsx.xlsx" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-white flex justify-between items-center group">
-                    <span class="text-[9px] font-black text-white uppercase italic">Inventário Master</span>
-                    <i class="fas fa-file-excel text-slate-700"></i>
-                </a>
-            </div>
+        {/* Repositório Section */}
+        <section>
+          <div className="flex items-center gap-4 mb-8">
+            <div className="h-8 w-1 bg-slate-700 rounded-full" />
+            <h2 className="text-sm font-black uppercase tracking-[0.5em] text-slate-500 italic font-mono">
+              Downloads Sincronizados (GitHub)
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <FileItem name="NT 10 - Saídas de Emergência" href="NT10SaidasdeEmergencia.pdf" color="border-yellow-500" />
+            <FileItem name="NT 21 - Luz Emergência" href="NT021ILUMINACAODEEMERGENCIAAPROVADO-FINAL.pdf" color="border-blue-500" />
+            <FileItem name="NT 22 - Sinalização" href="NormaTecnica222020CBMDFSistemadeSinalizacaodeSegurancaContraIncendioePanico.pdf" color="border-emerald-500" />
+            <FileItem name="AHA - Suporte à Vida" href="aha.pdf" color="border-red-500" />
+            <FileItem name="NR 26 - Sinalização" href="NR26SINALIZAÇÃO.pdf" color="border-orange-500" />
+            <FileItem name="Inventário Master Excel" href="inventario.xlsx.xlsx" color="border-white" />
+          </div>
         </section>
+      </main>
 
-    </main>
+      <footer className="py-20 border-t border-white/5 bg-slate-950/50 text-center">
+        <p className="text-[10px] font-black text-slate-800 uppercase tracking-[1.5em] italic">
+          Cyber Intelligence Operational Brigade • 2026
+        </p>
+      </footer>
+    </div>
+  );
+};
 
-    <footer class="py-20 border-t border-white/5 bg-slate-950/50 text-center">
-        <p class="text-[10px] font-black text-slate-800 uppercase tracking-[1.5em] italic">Cyber Intelligence Operational Brigade • 2026</p>
-    </footer>
+const FileItem = ({ name, href, color }) => (
+  <a 
+    href={href} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className={`glass p-6 rounded-2xl border-l-4 ${color} flex justify-between items-center group hover:bg-white/5 transition-all`}
+  >
+    <span className="text-[10px] font-black text-white uppercase italic group-hover:text-yellow-500 transition-colors">
+      {name}
+    </span>
+    <FileText size={16} className="text-slate-700 group-hover:text-white transition-colors" />
+  </a>
+);
 
-    <script>
-        function updateClock() {
-            const now = new Date();
-            const time = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('clock').innerText = `HQ STATUS: OPERACIONAL | SINC: GITHUB SYNC | ${time}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
-</body>
-</html>
+export default App;
