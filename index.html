@@ -3,246 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGB-C v27.3 | Catálogo de Ativos e NRs</title>
+    <title>SIGB-C v34.0 | Comando Marcus & Ralf</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #e2e8f0; }
-        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .card-glow:hover { border-color: #facc15; box-shadow: 0 0 30px rgba(250, 204, 21, 0.1); transform: translateY(-5px); }
-        .bg-pattern { background-image: radial-gradient(#1e293b 0.5px, transparent 0.5px); background-size: 24px 24px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f1f5f9; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .card-glow:hover { border-color: #facc15; box-shadow: 0 0 40px rgba(250, 204, 21, 0.15); transform: translateY(-3px); }
+        .bg-grid { background-image: linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px); background-size: 40px 40px; }
         .gradient-text { background: linear-gradient(to right, #facc15, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
-        .modal-content { margin: auto; display: block; width: 85%; max-width: 800px; border: 2px solid #facc15; border-radius: 24px; }
+        .status-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     </style>
 </head>
-<body class="bg-pattern min-h-screen">
+<body class="bg-grid min-h-screen">
 
-    <!-- Barra de Status Superior -->
-    <div class="bg-slate-900 text-yellow-500 py-1 px-6 text-[10px] font-black uppercase tracking-[0.3em] flex justify-between items-center sticky top-0 z-[60] border-b border-yellow-500/20">
-        <span class="flex items-center gap-2 font-mono"><i class="fas fa-microchip text-blue-400"></i> SISTEMA DE GESTÃO DE ATIVOS SINCRONIZADO</span>
-        <span id="clock" class="font-mono">CARREGANDO...</span>
+    <!-- Terminal de Status -->
+    <div class="bg-black/90 border-b border-yellow-500/30 px-8 py-2 flex justify-between items-center sticky top-0 z-[100]">
+        <div class="flex items-center gap-4">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 status-pulse"></span>
+            <span class="text-[10px] font-black tracking-[0.4em] text-yellow-500 uppercase font-mono italic">CIOB Intel Engine v34.0 - Sincronia de Arquivos Ativa</span>
+        </div>
+        <div id="clock" class="font-mono text-[10px] text-slate-500 tracking-widest italic uppercase"></div>
     </div>
 
-    <!-- Navegação -->
-    <nav class="sticky top-[24px] z-50 glass border-b border-white/5 px-6 py-4 mx-4 rounded-b-2xl shadow-2xl">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-yellow-500 p-2 rounded-xl shadow-lg">
-                    <i class="fas fa-boxes-stacked text-black text-xl"></i>
+    <nav class="p-6">
+        <div class="glass max-w-7xl mx-auto rounded-3xl p-5 flex justify-between items-center border-white/5 shadow-2xl">
+            <div class="flex items-center gap-5">
+                <div class="w-12 h-12 bg-yellow-500 rounded-2xl flex items-center justify-center text-black shadow-lg">
+                    <i class="fas fa-users-viewfinder text-2xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-extrabold tracking-tighter text-white leading-none italic uppercase">SIGB-C <span class="text-yellow-500 font-black">v27.3</span></h1>
-                    <p class="text-[8px] text-slate-500 font-bold uppercase tracking-widest italic">Marcus Vinícius | CDO Training</p>
+                    <h1 class="text-2xl font-black tracking-tighter italic uppercase text-white leading-none">SIGB-C <span class="text-yellow-500 font-black">v34.0</span></h1>
+                    <p class="text-[8px] font-black uppercase tracking-[0.3em] text-slate-500 italic">Central de Inteligência • Marcus V. & Ralf</p>
                 </div>
             </div>
-            <div class="hidden md:block">
-                <p class="text-[9px] text-yellow-500 font-black uppercase tracking-widest italic tracking-widest bg-yellow-500/10 px-4 py-1 rounded-full border border-yellow-500/20">SQUAD: RALF & GEMINI</p>
+            <div class="hidden md:flex gap-4">
+                 <div class="bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 rounded-full">
+                    <p class="text-[9px] text-emerald-500 font-black uppercase italic tracking-widest">Consultoria Técnica e Dados Ativa</p>
+                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-6 py-12 space-y-16">
-
-        <!-- NOVO CARD: CATÁLOGO TÉCNICO DE MATERIAIS (BASEADO NA PLANILHA) -->
-        <section id="catalogo-materiais">
-            <div class="flex items-center gap-4 mb-8">
-                <h3 class="text-xs font-black uppercase tracking-[0.5em] text-blue-400 font-mono italic">01. Catálogo de Materiais e Normas (NRs)</h3>
-                <div class="h-px bg-slate-800 flex-grow"></div>
-            </div>
-
-            <div class="glass p-8 rounded-[3rem] border-b-8 border-blue-500 shadow-2xl overflow-hidden relative">
-                <div class="absolute -right-10 -top-10 opacity-5">
-                    <i class="fas fa-clipboard-list text-[15rem]"></i>
+    <main class="max-w-7xl mx-auto px-6 py-10 space-y-16 pb-40">
+        
+        <!-- SQUAD DE COMANDO -->
+        <section id="squad">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Card Marcus -->
+                <div class="glass p-8 rounded-[3rem] border border-white/5 card-glow transition-all flex flex-col md:flex-row items-center gap-8">
+                    <div class="w-24 h-24 rounded-full bg-yellow-500 flex items-center justify-center text-black text-3xl font-black shadow-xl shadow-yellow-500/20">MV</div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-xl font-black italic text-white uppercase leading-none mb-2">Marcus Vinícius</h3>
+                        <p class="text-[10px] text-yellow-500 font-black uppercase tracking-[0.2em] mb-4">CDO & Estrategista de Dados</p>
+                        <a href="https://linkedin.com/in/marcus-vinícius-335552148" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-white hover:text-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase transition-all">
+                            <i class="fab fa-linkedin"></i> Perfil Profissional
+                        </a>
+                    </div>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-                    <!-- Grupo NR-06: EPIs -->
-                    <div class="bg-black/30 p-6 rounded-2xl border border-white/5">
-                        <h4 class="text-blue-400 font-black text-[10px] uppercase mb-4 tracking-[0.2em] flex items-center gap-2">
-                            <i class="fas fa-user-shield"></i> Proteção Individual (NR-06)
-                        </h4>
-                        <ul class="text-[11px] space-y-2 text-slate-400 font-bold">
-                            <li><i class="fas fa-angle-right mr-2 text-blue-500"></i> Capacete Vermelho H-700</li>
-                            <li><i class="fas fa-angle-right mr-2 text-blue-500"></i> Óculos de Proteção Incolor</li>
-                            <li><i class="fas fa-angle-right mr-2 text-blue-500"></i> Abafador de Concha</li>
-                            <li><i class="fas fa-angle-right mr-2 text-blue-500"></i> Respirador Semi-Facial</li>
-                        </ul>
-                    </div>
 
-                    <!-- Grupo NR-10: Elétrica -->
-                    <div class="bg-black/30 p-6 rounded-2xl border border-white/5">
-                        <h4 class="text-orange-500 font-black text-[10px] uppercase mb-4 tracking-[0.2em] flex items-center gap-2">
-                            <i class="fas fa-bolt"></i> Segurança Elétrica (NR-10)
-                        </h4>
-                        <ul class="text-[11px] space-y-2 text-slate-400 font-bold">
-                            <li><i class="fas fa-angle-right mr-2 text-orange-500"></i> Luva Isolante Alta Tensão (2.5KV)</li>
-                            <li><i class="fas fa-angle-right mr-2 text-orange-500"></i> Detector de Tensão</li>
-                            <li><i class="fas fa-angle-right mr-2 text-orange-500"></i> Ferramentas Isoladas</li>
-                        </ul>
-                    </div>
-
-                    <!-- Grupo NR-35: Altura -->
-                    <div class="bg-black/30 p-6 rounded-2xl border border-white/5">
-                        <h4 class="text-sky-400 font-black text-[10px] uppercase mb-4 tracking-[0.2em] flex items-center gap-2">
-                            <i class="fas fa-mountain"></i> Trabalho em Altura (NR-35)
-                        </h4>
-                        <ul class="text-[11px] space-y-2 text-slate-400 font-bold">
-                            <li><i class="fas fa-angle-right mr-2 text-sky-400"></i> Cinto Paraquedista 5 Pontos</li>
-                            <li><i class="fas fa-angle-right mr-2 text-sky-400"></i> Talabarte em Y (Absorvedor)</li>
-                            <li><i class="fas fa-angle-right mr-2 text-sky-400"></i> Trava-Quedas de Corda</li>
-                            <li><i class="fas fa-angle-right mr-2 text-sky-400"></i> Corda de Bombeiro 12mm</li>
-                        </ul>
-                    </div>
-
-                    <!-- Grupo APH / NR-07 -->
-                    <div class="bg-black/30 p-6 rounded-2xl border border-white/5">
-                        <h4 class="text-red-500 font-black text-[10px] uppercase mb-4 tracking-[0.2em] flex items-center gap-2">
-                            <i class="fas fa-kit-medical"></i> Resgate e APH (NR-07)
-                        </h4>
-                        <ul class="text-[11px] space-y-2 text-slate-400 font-bold">
-                            <li><i class="fas fa-angle-right mr-2 text-red-500"></i> Prancha Longa Rígida</li>
-                            <li><i class="fas fa-angle-right mr-2 text-red-500"></i> Colar Cervical Regulável</li>
-                            <li><i class="fas fa-angle-right mr-2 text-red-500"></i> Reanimador Manual (AMBU)</li>
-                            <li><i class="fas fa-angle-right mr-2 text-red-500"></i> Maleta de Atendimento APH</li>
-                        </ul>
-                    </div>
-
-                    <!-- Grupo NT-07 CBMDF -->
-                    <div class="bg-black/30 p-6 rounded-2xl border border-white/5">
-                        <h4 class="text-yellow-500 font-black text-[10px] uppercase mb-4 tracking-[0.2em] flex items-center gap-2">
-                            <i class="fas fa-fire-extinguisher"></i> Combate Incêndio (NT-07)
-                        </h4>
-                        <ul class="text-[11px] space-y-2 text-slate-400 font-bold">
-                            <li><i class="fas fa-angle-right mr-2 text-yellow-500"></i> Extintores (PQS, CO2, Água)</li>
-                            <li><i class="fas fa-angle-right mr-2 text-yellow-500"></i> Mangueiras de Hidrante</li>
-                            <li><i class="fas fa-angle-right mr-2 text-yellow-500"></i> Esguicho Regulável</li>
-                        </ul>
+                <!-- Card Ralf -->
+                <div class="glass p-8 rounded-[3rem] border border-white/5 card-glow transition-all flex flex-col md:flex-row items-center gap-8">
+                    <div class="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-blue-500/20">RF</div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-xl font-black italic text-white uppercase leading-none mb-2">Rafael (Ralf)</h3>
+                        <p class="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em] mb-4">Especialista em Operações Táticas</p>
+                        <a href="https://linkedin.com/in/rafooc" target="_blank" class="inline-flex items-center gap-2 bg-blue-700 hover:bg-white hover:text-blue-700 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase transition-all">
+                            <i class="fab fa-linkedin"></i> Perfil Profissional
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- BIBLIOTECA DE DOCUMENTOS (Ajustado p/ os nomes do seu GitHub) -->
-        <section id="docs">
-            <div class="flex items-center gap-4 mb-8">
-                <h3 class="text-xs font-black uppercase tracking-[0.5em] text-yellow-500 font-mono italic">02. Repositório de Documentos Oficiais</h3>
-                <div class="h-px bg-slate-800 flex-grow"></div>
+        <!-- MANUAL DO POVO (LINGUAGEM SIMPLES) -->
+        <section id="manual">
+            <header class="mb-10">
+                <h2 class="text-4xl font-black italic tracking-tighter uppercase text-white leading-none">Manual <span class="text-yellow-500">do Povo</span></h2>
+                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-[0.3em] mt-2 italic">Entenda as normas como a gente conversa no café</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Escadas -->
+                <div class="glass p-8 rounded-[2.5rem] border-l-4 border-yellow-500 card-glow transition-all">
+                    <h4 class="text-yellow-500 font-black text-xs uppercase mb-3 italic tracking-widest flex justify-between">Escadas (NT 10) <i class="fas fa-stairs"></i></h4>
+                    <p class="text-xs text-slate-400 leading-relaxed font-medium">
+                        "É o caminho da rua. <strong class="text-white">Regra de ouro:</strong> Nunca deixe nada no degrau. Se a fumaça vier, a porta tem que estar fechada pra te proteger."
+                    </p>
+                </div>
+                <!-- Luzes -->
+                <div class="glass p-8 rounded-[2.5rem] border-l-4 border-blue-500 card-glow transition-all">
+                    <h4 class="text-blue-500 font-black text-xs uppercase mb-3 italic tracking-widest flex justify-between">Luzes (NT 21) <i class="fas fa-lightbulb"></i></h4>
+                    <p class="text-xs text-slate-400 leading-relaxed font-medium">
+                        "Acabou a energia? Os blocos de luz têm que ligar sozinhos. <strong class="text-white">Regra de ouro:</strong> Eles precisam aguentar 1 hora acesos pra ninguém ficar perdido."
+                    </p>
+                </div>
+                <!-- Placas -->
+                <div class="glass p-8 rounded-[2.5rem] border-l-4 border-emerald-500 card-glow transition-all">
+                    <h4 class="text-emerald-500 font-black text-xs uppercase mb-3 italic tracking-widest flex justify-between">Placas (NT 22 / NR 26) <i class="fas fa-sign-hanging"></i></h4>
+                    <p class="text-xs text-slate-400 leading-relaxed font-medium">
+                        "Siga o verde! <strong class="text-white">Regra de ouro:</strong> As placas mostram pra onde correr. Elas têm que brilhar no escuro mesmo se tudo apagar."
+                    </p>
+                </div>
             </div>
+        </section>
+
+        <!-- AHA 2025: PROTOCOLOS DE VIDA -->
+        <section id="aha">
+            <div class="glass p-10 rounded-[3.5rem] border border-red-500/10 bg-red-600/5 relative overflow-hidden group">
+                <i class="fas fa-heart-pulse text-red-500/10 text-[12rem] absolute -right-6 -top-6"></i>
+                <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                    <div class="max-w-2xl">
+                        <h3 class="text-3xl font-black italic uppercase text-white leading-none mb-6">Diretrizes <span class="text-red-500">AHA 2025</span></h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-black shrink-0">1</div>
+                                <div>
+                                    <p class="text-sm font-black text-white italic uppercase leading-none mb-1">Massagem Cardíaca (RCP)</p>
+                                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-tighter italic">Forte e Rápido! 100 a 120 compressões por minuto. Braços sempre esticados.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-orange-600 flex items-center justify-center text-white font-black shrink-0">2</div>
+                                <div>
+                                    <p class="text-sm font-black text-white italic uppercase leading-none mb-1">Manobra de Engasgo (Heimlich)</p>
+                                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-tighter italic">Puxe para dentro e para cima (movimento em J) acima do umbigo.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-black shrink-0">3</div>
+                                <div>
+                                    <p class="text-sm font-black text-white italic uppercase leading-none mb-1">Uso do D.E.A</p>
+                                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-tighter italic">Ligue o aparelho e siga as vozes. Ele fará todo o trabalho de análise.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="aha.pdf" target="_blank" class="w-full md:w-auto bg-red-600 hover:bg-white hover:text-red-600 text-white font-black py-8 px-16 rounded-2xl text-[12px] uppercase tracking-[0.4em] transition-all shadow-xl shadow-red-600/20 text-center">
+                        PDF AHA 2025
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- REPOSITÓRIO GITHUB SYNC (ARQUIVOS REAIS) -->
+        <section id="downloads">
+            <header class="mb-8 flex items-center gap-4">
+                <div class="h-8 w-1 bg-slate-700 rounded-full"></div>
+                <h2 class="text-sm font-black uppercase tracking-[0.5em] text-slate-500 italic font-mono">Terminal de Documentos GitHub</h2>
+            </header>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                <a href="nt007.pdf.pdf" target="_blank" class="glass p-6 rounded-2xl card-glow border-l-4 border-yellow-500 group">
-                    <h4 class="font-black text-[11px] uppercase text-white italic">NT 07 / 2011</h4>
-                    <p class="text-[9px] text-slate-500 mt-2 font-mono italic">nt007.pdf.pdf</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a href="NT10SaidasdeEmergencia.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-yellow-500 flex justify-between items-center group">
+                    <span class="text-[10px] font-black text-white uppercase group-hover:text-yellow-500 transition-colors">NT 10 - Saídas</span>
+                    <i class="fas fa-file-pdf text-slate-700"></i>
                 </a>
-                <a href="leilucas.pdf" target="_blank" class="glass p-6 rounded-2xl card-glow border-l-4 border-emerald-500 group">
-                    <h4 class="font-black text-[11px] uppercase text-white italic">Lei Lucas</h4>
-                    <p class="text-[9px] text-slate-500 mt-2 font-mono italic">leilucas.pdf</p>
+                <a href="NT021ILUMINACAODEEMERGENCIAAPROVADO-FINAL.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-blue-500 flex justify-between items-center group">
+                    <span class="text-[10px] font-black text-white uppercase group-hover:text-blue-500 transition-colors">NT 21 - Iluminação</span>
+                    <i class="fas fa-file-pdf text-slate-700"></i>
                 </a>
-                <a href="nt362023.pdf" target="_blank" class="glass p-6 rounded-2xl card-glow border-l-4 border-blue-500 group">
-                    <h4 class="font-black text-[11px] uppercase text-white italic">NT 36 / 2023</h4>
-                    <p class="text-[9px] text-slate-500 mt-2 font-mono italic">nt362023.pdf</p>
+                <a href="NormaTecnica222020CBMDFSistemadeSinalizacaodeSegurancaContraIncendioePanico.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-emerald-500 flex justify-between items-center group">
+                    <span class="text-[10px] font-black text-white uppercase group-hover:text-emerald-500 transition-colors">NT 22 - Sinalização</span>
+                    <i class="fas fa-file-pdf text-slate-700"></i>
                 </a>
-                <a href="inventario.xlsx.xlsx" target="_blank" class="glass p-6 rounded-2xl card-glow border-l-4 border-white group">
-                    <h4 class="font-black text-[11px] uppercase text-white italic">Excel Master</h4>
-                    <p class="text-[9px] text-slate-500 mt-2 font-mono italic">inventario.xlsx.xlsx</p>
+                <a href="NR26SINALIZAÇÃO.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-orange-500 flex justify-between items-center group">
+                    <span class="text-[10px] font-black text-white uppercase group-hover:text-orange-500 transition-colors">NR 26 - Cores</span>
+                    <i class="fas fa-file-pdf text-slate-700"></i>
                 </a>
-            </div>
-        </section>
-
-        <!-- GALERIA VISUAL (IMAGENS TÉCNICAS REAIS) -->
-        <section id="galeria">
-            <div class="flex items-center gap-4 mb-8">
-                <h3 class="text-xs font-black uppercase tracking-[0.5em] text-emerald-400 font-mono italic">03. Ativos Visuais (Referência Técnica)</h3>
-                <div class="h-px bg-slate-800 flex-grow"></div>
-            </div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Extintor Real -->
-                <div class="glass p-4 rounded-3xl card-glow transition-all group border border-white/5">
-                    <div class="overflow-hidden rounded-2xl mb-4 h-48 bg-slate-900 flex items-center justify-center relative">
-                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=600" 
-                             alt="[Image of Extintor]" 
-                             class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 cursor-zoom-in"
-                             onclick="openModal(this.src, 'Extintor de Incêndio PQS - Proteção Técnica NT-07')">
-                        <div class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-full shadow-lg">NT-07</div>
-                    </div>
-                    <h4 class="font-black text-[10px] uppercase text-white italic tracking-widest text-center">Extintor Master</h4>
-                </div>
-
-                <!-- DEA Real -->
-                <div class="glass p-4 rounded-3xl card-glow transition-all group border border-white/5">
-                    <div class="overflow-hidden rounded-2xl mb-4 h-48 bg-slate-900 flex items-center justify-center relative">
-                        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=600" 
-                             alt="[Image of DEA]" 
-                             class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 cursor-zoom-in"
-                             onclick="openModal(this.src, 'Desfibrilador Externo Automático (D.E.A) - Lei Lucas')">
-                        <div class="absolute top-2 right-2 bg-emerald-600 text-white text-[8px] font-black px-2 py-1 rounded-full shadow-lg">LEI LUCAS</div>
-                    </div>
-                    <h4 class="font-black text-[10px] uppercase text-white italic tracking-widest text-center">D.E.A</h4>
-                </div>
-
-                <!-- Painel Elétrico NR-10 -->
-                <div class="glass p-4 rounded-3xl card-glow transition-all group border border-white/5">
-                    <div class="overflow-hidden rounded-2xl mb-4 h-48 bg-slate-900 flex items-center justify-center relative">
-                        <img src="https://images.unsplash.com/photo-1621905252507-b3522202640a?q=80&w=600" 
-                             alt="" 
-                             class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 cursor-zoom-in"
-                             onclick="openModal(this.src, 'Instalações e Serviços em Eletricidade - NR-10')">
-                        <div class="absolute top-2 right-2 bg-orange-600 text-white text-[8px] font-black px-2 py-1 rounded-full shadow-lg">NR-10</div>
-                    </div>
-                    <h4 class="font-black text-[10px] uppercase text-white italic tracking-widest text-center">Elétrica</h4>
-                </div>
-
-                <!-- Trabalho em Altura NR-35 -->
-                <div class="glass p-4 rounded-3xl card-glow transition-all group border border-white/5">
-                    <div class="overflow-hidden rounded-2xl mb-4 h-48 bg-slate-900 flex items-center justify-center relative">
-                        <img src="https://images.unsplash.com/photo-1544211905-2766627038e8?q=80&w=600" 
-                             alt="" 
-                             class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 cursor-zoom-in"
-                             onclick="openModal(this.src, 'Sistemas de Proteção contra Quedas - NR-35')">
-                        <div class="absolute top-2 right-2 bg-sky-600 text-white text-[8px] font-black px-2 py-1 rounded-full shadow-lg">NR-35</div>
-                    </div>
-                    <h4 class="font-black text-[10px] uppercase text-white italic tracking-widest text-center">Altura</h4>
-                </div>
+                <a href="leilucas.pdf" target="_blank" class="glass p-5 rounded-2xl card-glow border-l-4 border-red-500 flex justify-between items-center group">
+                    <span class="text-[10px] font-black text-white uppercase group-hover:text-red-500 transition-colors">Lei Lucas</span>
+                    <i class="fas fa-file-pdf text-slate-700"></i>
+                </a>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL DE VISUALIZAÇÃO -->
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <div class="flex flex-col items-center justify-center min-h-screen p-4">
-            <span class="absolute top-6 right-10 text-white text-5xl font-light cursor-pointer hover:text-yellow-500 transition-colors">&times;</span>
-            <img class="modal-content shadow-2xl" id="imgFull">
-            <div id="caption" class="text-center text-yellow-500 font-black mt-8 uppercase tracking-[0.4em] text-xs"></div>
-        </div>
-    </div>
-
     <footer class="py-16 text-center border-t border-white/5 bg-slate-950/50">
-        <p class="text-[9px] font-black uppercase tracking-[1em] text-slate-700 italic">SIGB-C | Marcus Vinícius | Ralf | Gemini Intelligence</p>
-        <p class="text-[7px] text-slate-800 uppercase mt-4 italic tracking-widest underline decoration-yellow-500/50">Desenvolvido para Excelência em Gestão de Segurança • 2024</p>
+        <p class="text-[9px] font-black uppercase tracking-[1em] text-slate-800 italic">Cyber Intelligence Operational Brigade • 2026</p>
     </footer>
 
     <script>
         function updateClock() {
             const now = new Date();
             const time = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('clock').innerText = `HQ STATUS: OPERACIONAL | SINC GITHUB | ${time}`;
+            document.getElementById('clock').innerText = `HQ STATUS: OPERACIONAL | SINC: GITHUB | ${time}`;
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        function openModal(src, title) {
-            document.getElementById('imageModal').style.display = "block";
-            document.getElementById('imgFull').src = src;
-            document.getElementById('caption').innerHTML = title;
-        }
-
-        function closeModal() {
-            document.getElementById('imageModal').style.display = "none";
-        }
     </script>
 </body>
 </html>
