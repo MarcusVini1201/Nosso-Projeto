@@ -3,123 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGB-C | Marcus Vinícius - CDO</title>
+    <title>SIGB-C v23 | Comando Marcus Vinícius</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020301; color: #e2e8f0; }
-        .glass { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .card-hover:hover { transform: translateY(-8px); border-color: #facc15; transition: all 0.3s ease; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050505; color: #e2e8f0; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .card-glow:hover { border-color: #facc15; box-shadow: 0 0 30px rgba(250, 204, 21, 0.1); transform: translateY(-5px); }
+        .neo-button { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bg-pattern { background-image: radial-gradient(#1e293b 0.5px, transparent 0.5px); background-size: 24px 24px; }
+        .gradient-text { background: linear-gradient(to right, #facc15, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="selection:bg-yellow-500 selection:text-black min-h-screen">
+<body class="bg-pattern min-h-screen">
 
-    <!-- Header / Navbar -->
-    <nav class="border-b border-slate-800 p-6 sticky top-0 z-50 glass">
+    <!-- Barra de Status Superior -->
+    <div class="bg-yellow-500 text-black py-1 px-6 text-[10px] font-black uppercase tracking-[0.3em] flex justify-between items-center">
+        <span>Setor de Inteligência Operacional</span>
+        <span id="clock">CARREGANDO SISTEMA...</span>
+    </div>
+
+    <!-- Navegação Principal -->
+    <nav class="sticky top-0 z-50 glass border-b border-white/5 px-6 py-4">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-yellow-500 rounded-2xl flex items-center justify-center text-black shadow-lg">
-                    <i class="fas fa-shield-alt text-xl"></i>
+            <div class="flex items-center gap-3">
+                <div class="bg-yellow-500 p-2 rounded-xl shadow-lg shadow-yellow-500/20">
+                    <i class="fas fa-fire-extinguisher text-black text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black tracking-tighter uppercase leading-none italic">Marcus <span class="text-yellow-500">Vinícius</span></h1>
-                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-[0.3em] mt-1">Chief Data Officer Project</p>
+                    <h1 class="text-lg font-extrabold tracking-tighter leading-none">SIGB-C <span class="text-yellow-500">ULTRA</span></h1>
+                    <p class="text-[8px] text-slate-500 font-bold uppercase tracking-widest">Brigada Particular • DF</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span class="text-[10px] text-emerald-400 font-black uppercase tracking-widest">Sinal Online</span>
+            <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest">
+                <a href="#normas" class="hover:text-yellow-500 transition-colors">Normas</a>
+                <a href="#procedimentos" class="hover:text-yellow-500 transition-colors">Procedimentos</a>
+                <a href="#dados" class="hover:text-yellow-500 transition-colors">Dados</a>
             </div>
         </div>
     </nav>
 
-    <header class="container mx-auto py-20 px-6">
+    <header class="container mx-auto pt-20 pb-12 px-6">
         <div class="max-w-4xl">
-            <h2 class="text-6xl font-black mb-6 leading-none tracking-tighter">
-                Repositório de <br><span class="text-yellow-500 italic uppercase underline decoration-slate-800">Conformidade</span>
+            <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-[0.9] tracking-tighter">
+                Sistemas de <br><span class="gradient-text uppercase">Gestão e Resposta</span>
             </h2>
-            <p class="text-slate-400 text-xl max-w-2xl font-light italic">
-                Base estratégica de dados para Brigada Particular. Sincronização de Normas Técnicas e Inventário Operacional.
+            <p class="text-slate-400 text-lg md:text-xl font-light italic border-l-2 border-yellow-500 pl-6 py-2">
+                Central de Ativos e Protocolos de Emergência. <br>
+                Operador Responsável: <span class="text-white font-bold">Marcus Vinícius (CDO)</span>
             </p>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 pb-32">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- NR-10 -->
-            <div class="glass p-10 rounded-[2.5rem] card-hover shadow-2xl flex flex-col justify-between">
-                <div>
-                    <i class="fas fa-bolt text-orange-500 text-4xl mb-8"></i>
-                    <h3 class="text-2xl font-black mb-4 uppercase tracking-tight italic">NR-10 Elétrica</h3>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Segurança em serviços de eletricidade. Uso obrigatório de luvas isolantes conforme normas Petrobras.</p>
-                </div>
-                <a href="nr10.pdf" target="_blank" class="flex items-center justify-center bg-white text-black font-black py-4 rounded-2xl hover:bg-yellow-500 transition-colors uppercase text-xs tracking-widest">
-                    <i class="fas fa-file-pdf mr-3"></i> Acessar PDF
+    <main class="container mx-auto px-6 space-y-20 pb-40">
+
+        <!-- SEÇÃO 1: NORMAS E DOCUMENTAÇÃO (O que você já tinha) -->
+        <section id="normas">
+            <div class="flex items-center gap-4 mb-10">
+                <h3 class="text-xs font-black uppercase tracking-[0.5em] text-yellow-500">01. Documentação Técnica</h3>
+                <div class="h-px bg-slate-800 flex-grow"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="nr10.pdf" target="_blank" class="glass p-6 rounded-3xl card-glow neo-button group">
+                    <i class="fas fa-bolt text-orange-500 mb-4 text-2xl group-hover:scale-110 transition-transform"></i>
+                    <h4 class="font-bold text-sm uppercase">NR-10</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 italic">Risco Elétrico</p>
+                </a>
+                <a href="nr35.pdf" target="_blank" class="glass p-6 rounded-3xl card-glow neo-button group">
+                    <i class="fas fa-mountain text-sky-400 mb-4 text-2xl group-hover:scale-110 transition-transform"></i>
+                    <h4 class="font-bold text-sm uppercase">NR-35</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 italic">Trabalho em Altura</p>
+                </a>
+                <a href="nt007.pdf" target="_blank" class="glass p-6 rounded-3xl card-glow neo-button group border-emerald-500/20">
+                    <i class="fas fa-file-shield text-emerald-500 mb-4 text-2xl group-hover:scale-110 transition-transform"></i>
+                    <h4 class="font-bold text-sm uppercase">NT 007 / CBMDF</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 italic">Base Legal DF</p>
+                </a>
+                <a href="apostila.pdf" target="_blank" class="glass p-6 rounded-3xl card-glow neo-button group">
+                    <i class="fas fa-book-open text-yellow-500 mb-4 text-2xl group-hover:scale-110 transition-transform"></i>
+                    <h4 class="font-bold text-sm uppercase">Apostila Base</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 italic">Manual de Formação</p>
                 </a>
             </div>
+        </section>
 
-            <!-- NR-35 -->
-            <div class="glass p-10 rounded-[2.5rem] card-hover shadow-2xl flex flex-col justify-between">
-                <div>
-                    <i class="fas fa-mountain text-sky-400 text-4xl mb-8"></i>
-                    <h3 class="text-2xl font-black mb-4 uppercase tracking-tight italic">NR-35 Altura</h3>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Trabalho em Altura. Gestão de cinturões e talabartes para inspeções técnicas verticais.</p>
+        <!-- SEÇÃO 2: PROCEDIMENTOS OPERACIONAIS (A NOVIDADE DA BRIGADA) -->
+        <section id="procedimentos" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="flex items-center gap-4 mb-4">
+                    <h3 class="text-xs font-black uppercase tracking-[0.5em] text-yellow-500">02. Protocolos Rápidos (POP)</h3>
+                    <div class="h-px bg-slate-800 flex-grow"></div>
                 </div>
-                <a href="nr35.pdf" target="_blank" class="flex items-center justify-center bg-white text-black font-black py-4 rounded-2xl hover:bg-yellow-500 transition-colors uppercase text-xs tracking-widest">
-                    <i class="fas fa-file-pdf mr-3"></i> Acessar PDF
-                </a>
-            </div>
-
-            <!-- Apostila -->
-            <div class="glass p-10 rounded-[2.5rem] card-hover shadow-2xl flex flex-col justify-between">
-                <div>
-                    <i class="fas fa-graduation-cap text-yellow-500 text-4xl mb-8"></i>
-                    <h3 class="text-2xl font-black mb-4 uppercase tracking-tight italic">Formação EAD</h3>
-                    <p class="text-slate-500 text-sm mb-10 leading-relaxed italic">Apostila completa de formação e reciclagem para Brigadista Particular.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="glass p-8 rounded-[2rem] border-l-4 border-red-600">
+                        <h4 class="text-red-500 font-black text-xs uppercase mb-4 tracking-widest">Em caso de Incêndio</h4>
+                        <ul class="text-[11px] space-y-3 text-slate-400">
+                            <li><i class="fas fa-check text-red-600 mr-2"></i> Acionar alarme e comunicar central.</li>
+                            <li><i class="fas fa-check text-red-600 mr-2"></i> Isolar a área e desligar energia.</li>
+                            <li><i class="fas fa-check text-red-600 mr-2"></i> Combate inicial (se seguro).</li>
+                            <li><i class="fas fa-check text-red-600 mr-2"></i> Orientar abandono de área.</li>
+                        </ul>
+                    </div>
+                    <div class="glass p-8 rounded-[2rem] border-l-4 border-blue-600">
+                        <h4 class="text-blue-500 font-black text-xs uppercase mb-4 tracking-widest">Atendimento APH</h4>
+                        <ul class="text-[11px] space-y-3 text-slate-400">
+                            <li><i class="fas fa-check text-blue-600 mr-2"></i> Avaliar segurança da cena.</li>
+                            <li><i class="fas fa-check text-blue-600 mr-2"></i> Checar nível de consciência.</li>
+                            <li><i class="fas fa-check text-blue-600 mr-2"></i> Chamar SAMU (192) / Bombeiros (193).</li>
+                            <li><i class="fas fa-check text-blue-600 mr-2"></i> Manter sinais vitais até o socorro.</li>
+                        </ul>
+                    </div>
                 </div>
-                <a href="apostila.pdf" target="_blank" class="flex items-center justify-center bg-white text-black font-black py-4 rounded-2xl hover:bg-yellow-500 transition-colors uppercase text-xs tracking-widest">
-                    <i class="fas fa-file-pdf mr-3"></i> Ver Material
-                </a>
             </div>
 
-            <!-- NT 007 -->
-            <div class="glass p-10 rounded-[2.5rem] card-hover shadow-2xl flex flex-col justify-between border-b-8 border-emerald-500">
-                <div>
-                    <i class="fas fa-file-contract text-emerald-500 text-4xl mb-8"></i>
-                    <h3 class="text-2xl font-black mb-4 uppercase tracking-tight italic">NT 007 / CBMDF</h3>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Norma Técnica de Brigada de Incêndio do Distrito Federal. O fundamento legal do nosso posto.</p>
+            <!-- Contatos de Emergência -->
+            <div class="glass p-8 rounded-[2.5rem] bg-yellow-500/5 border-yellow-500/20">
+                <h4 class="text-yellow-500 font-black text-xs uppercase mb-8 tracking-widest flex items-center gap-3">
+                    <i class="fas fa-phone-alt animate-bounce"></i> Linha de Emergência
+                </h4>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-4 bg-black/40 rounded-2xl border border-white/5">
+                        <span class="text-[10px] font-bold uppercase">Corpo de Bombeiros</span>
+                        <span class="text-xl font-black text-red-500">193</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-black/40 rounded-2xl border border-white/5">
+                        <span class="text-[10px] font-bold uppercase">SAMU</span>
+                        <span class="text-xl font-black text-blue-500">192</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-black/40 rounded-2xl border border-white/5">
+                        <span class="text-[10px] font-bold uppercase">Polícia Militar</span>
+                        <span class="text-xl font-black text-emerald-500">190</span>
+                    </div>
                 </div>
-                <a href="nt007.pdf" target="_blank" class="flex items-center justify-center bg-emerald-600 text-white font-black py-4 rounded-2xl hover:bg-emerald-400 transition-all text-center text-xs tracking-widest uppercase shadow-lg">
-                    <i class="fas fa-file-pdf mr-3"></i> Ler Portaria
-                </a>
             </div>
+        </section>
 
-            <!-- Inventário Excel -->
-            <div class="glass p-10 rounded-[2.5rem] card-hover shadow-2xl flex flex-col justify-between border-b-8 border-blue-500">
-                <div>
-                    <i class="fas fa-table text-blue-400 text-4xl mb-8"></i>
-                    <h3 class="text-2xl font-black mb-4 uppercase tracking-tight italic text-blue-400">Excel Inventário</h3>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed italic">Base de dados para controle de materiais e validades. Criado no curso Prof. Paulo Fróes.</p>
+        <!-- SEÇÃO 3: GESTÃO DE DADOS (Excel & BI) -->
+        <section id="dados">
+            <div class="flex items-center gap-4 mb-10">
+                <h3 class="text-xs font-black uppercase tracking-[0.5em] text-blue-400">03. Intelligence & Assets</h3>
+                <div class="h-px bg-slate-800 flex-grow"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass p-10 rounded-[3rem] border-b-4 border-blue-500 group overflow-hidden relative">
+                    <i class="fas fa-file-excel text-blue-500 text-6xl absolute -right-4 -top-4 opacity-10 group-hover:rotate-12 transition-transform"></i>
+                    <h4 class="text-2xl font-black mb-4 italic tracking-tight uppercase">Inventário Global</h4>
+                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">
+                        Controle de validade de extintores, mangueiras, hidrantes e kits de primeiros socorros. <br>
+                        <span class="text-blue-400 font-mono text-[10px]">[Database: inventario.xlsx]</span>
+                    </p>
+                    <a href="inventario.xlsx" class="inline-block bg-blue-600 hover:bg-blue-400 text-white font-black py-4 px-10 rounded-2xl text-[10px] uppercase tracking-widest transition-all">
+                        Baixar Master Sheet
+                    </a>
                 </div>
-                <a href="inventario.xlsx" class="flex items-center justify-center bg-blue-600 text-white font-black py-4 rounded-2xl hover:bg-blue-400 transition-all text-center text-xs tracking-widest uppercase">
-                    <i class="fas fa-file-excel mr-3"></i> Baixar Tabela
-                </a>
-            </div>
 
-            <!-- Coming Soon Power BI -->
-            <div class="bg-slate-900/40 p-10 rounded-[2.5rem] border border-dashed border-slate-800 flex flex-col justify-center items-center text-center opacity-60">
-                <i class="fas fa-chart-line text-slate-700 text-5xl mb-6"></i>
-                <h4 class="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px]">Power BI Dashboard</h4>
-                <p class="text-slate-700 text-[9px] mt-4 font-mono uppercase italic">Em breve • Próxima fase Alura</p>
+                <div class="glass p-10 rounded-[3rem] border-b-4 border-yellow-500/20 opacity-60">
+                    <h4 class="text-xl font-black mb-4 uppercase text-slate-500">Power BI Dashboard</h4>
+                    <div class="aspect-video bg-black/60 rounded-2xl border border-dashed border-slate-800 flex flex-col items-center justify-center text-center">
+                        <i class="fas fa-chart-pie text-slate-800 text-4xl mb-4"></i>
+                        <p class="text-[9px] font-bold uppercase tracking-[0.3em] text-slate-700">Aguardando Integração de Dados</p>
+                        <p class="text-[8px] text-slate-800 mt-2 font-mono">Status: Formação Alura em Progresso</p>
+                    </div>
+                </div>
             </div>
+        </section>
 
-        </div>
+        <!-- SEÇÃO 4: EQUIPE (QG) -->
+        <section id="equipe">
+            <div class="flex items-center gap-4 mb-10">
+                <h3 class="text-xs font-black uppercase tracking-[0.5em] text-slate-500">04. Comando de Operações</h3>
+                <div class="h-px bg-slate-800 flex-grow"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass p-6 rounded-2xl flex items-center gap-6">
+                    <div class="w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center text-black font-black text-xl">MV</div>
+                    <div>
+                        <p class="text-xs font-black uppercase tracking-tighter">Marcus Vinícius</p>
+                        <p class="text-[9px] text-yellow-500 font-bold uppercase">Gestor de Dados e Ativos</p>
+                    </div>
+                </div>
+                <div class="glass p-6 rounded-2xl flex items-center gap-6 opacity-80">
+                    <div class="w-14 h-14 bg-slate-800 rounded-full flex items-center justify-center text-slate-500 font-black text-xl italic underline">AD</div>
+                    <div>
+                        <p class="text-xs font-black uppercase tracking-tighter">Adriano</p>
+                        <p class="text-[9px] text-slate-500 font-bold uppercase italic">Apoio Operacional / Rest</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="container mx-auto px-6 py-12 border-t border-slate-900 text-slate-700 text-[10px] uppercase font-black tracking-[0.5em] text-center">
-        Marcus Vinícius Pereira de Oliveira • Chief Data Officer Training • 2026
+    <footer class="glass mt-20 border-t border-white/5 py-12 text-center">
+        <p class="text-[9px] font-black uppercase tracking-[0.8em] text-slate-600 mb-2">Developed by MVPO Intelligence</p>
+        <p class="text-[8px] font-bold text-slate-800 uppercase tracking-widest italic">In compliance with NR-10, NR-35 and NT 007/2011 CBMDF</p>
     </footer>
 
+    <script>
+        // Relógio de Operações em Tempo Real
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('pt-BR');
+            const date = now.toLocaleDateString('pt-BR');
+            document.getElementById('clock').innerText = `STATUS: ONLINE | ${date} - ${time} | DF-BRA`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
